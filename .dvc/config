@@ -1,0 +1,4 @@
+[core]
+    remote = s3remote_shoury
+['remote "s3remote_shoury"']
+    url = s3://shoury
