@@ -6,14 +6,17 @@ from sklearn.metrics import mean_squared_error, r2_score
 # Load dataset
 df = pd.read_csv("data/housing.csv")
 
-# Convert categorical column to numeric
+# Fill missing numeric values with column mean
+df = df.fillna(df.mean(numeric_only=True))
+
+# Encode categorical column
 df = pd.get_dummies(df, columns=["ocean_proximity"])
 
-# Split features and target
+# Features and target
 X = df.drop("median_house_value", axis=1)
 y = df["median_house_value"]
 
-# Train test split
+# Train-test split
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
@@ -22,7 +25,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-# Predictions
+# Predict
 pred = model.predict(X_test)
 
 # Metrics
