@@ -1,25 +1,28 @@
 name: ML Pipeline
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   train:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           pip install pandas scikit-learn dvc dvc-s3
 
-      - name: Pull dataset from DVC
+      - name: Pull Dataset from DVC
         run: dvc pull
 
       - name: Train Model
